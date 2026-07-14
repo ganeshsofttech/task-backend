@@ -59,13 +59,13 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/task-frontend:latest
           build-args: |
-            REACT_APP_API_URL=http://${{ secrets.BACKEND_IP }}:5000
+            REACT_APP_API_URL=${{ secrets.BACKEND_IP }}
 
-     # Backend
-     - name: Build and Push Backend Container
-       if: github.event.repository.name == 'task-backend'
-       uses: docker/build-push-action@v5
-       with:
-         context: .
-         push: true
-         tags: ${{ secrets.DOCKERHUB_USERNAME }}/task-backend:latest
+      # FOR BACKEND REPOSITORY BUILD:
+      - name: Build and Push Backend Container
+        if: github.event.repository.name == 'task-backend'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/task-backend:latest
